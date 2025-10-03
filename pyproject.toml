@@ -1,0 +1,9 @@
+[project]
+name = "hexlet-code"
+version = "0.1.0"
+description = "Compares two configuration files and shows a difference."
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+gendiff = "hexlet_code.gendiff:main"

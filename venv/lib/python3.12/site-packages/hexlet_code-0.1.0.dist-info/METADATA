@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: hexlet-code
+Version: 0.1.0
+Summary: Compares two configuration files and shows a difference.
+Requires-Python: >=3.12
