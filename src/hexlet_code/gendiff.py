@@ -1,4 +1,9 @@
 import argparse
+import json
+
+def parse_file(file_path):
+    with open(file_path, encoding='utf-8') as file:
+        return json.load(file)
 
 def main():
     parser = argparse.ArgumentParser(
@@ -17,12 +22,15 @@ def main():
 
     args = parser.parse_args()
 
-    # Здесь вы можете добавить вызов функции сравнения файлов,
-    # передав ей args.first_file, args.second_file, args.format
+    # Читаем и парсим файлы перед сравнением
+    data1 = parse_file(args.first_file)
+    data2 = parse_file(args.second_file)
 
-    print(f'File 1: {args.first_file}')
-    print(f'File 2: {args.second_file}')
-    print(f'Selected format: {args.format}')
+    # Для проверки выводим считанные данные
+    print('Data from first file:', data1)
+    print('Data from second file:', data2)
+
+    # Тут далее вы бы вызвали функцию сравнения и вывод результата
 
 if __name__ == '__main__':
     main()
