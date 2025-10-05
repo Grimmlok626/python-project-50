@@ -1,6 +1,7 @@
 [flake8]
-max-line-length = 80  # ваш параметр
-ignore = F401  # игнорировать неиспользуемые импорты для `__init__.py`
+exclude = venv/*
+max-line-length = 80
+ignore = E501, F401
 select = E,F,I,C90
 per-file-ignores =
     __init__.py: F401
