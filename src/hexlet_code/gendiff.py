@@ -1,6 +1,7 @@
 import argparse
 import json
 
+
 def parse_file(file_path):
     """
     Загружает JSON из файла по указанному пути.
@@ -24,6 +25,7 @@ def parse_file(file_path):
     except json.JSONDecodeError:
         print(f"Некорректный JSON в файле: {file_path}")
         raise
+
 
 def generate_diff(data1, data2):
     """
@@ -52,6 +54,7 @@ def generate_diff(data1, data2):
     lines.append('}')
     return '\n'.join(lines)
 
+
 def format_value(value):
     """
     Форматирует значение для вывода.
@@ -76,17 +79,17 @@ def format_value(value):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Compares two configuration files and shows a difference."
+        description="Сравнивает два файла конфигурации и выводит разницу."
     )
-    parser.add_argument("first_file", type=str, help="Path to the first file")
-    parser.add_argument("second_file", type=str, help="Path to the second file")
+    parser.add_argument("first_file", type=str, help="Путь к первому файлу")
+    parser.add_argument("second_file", type=str, help="Путь ко второму файлу")
     parser.add_argument(
         "-f",
         "--format",
         dest="format",
         type=str,
         default="plain",
-        help='set format of output, only "plain" supported for now',
+        help='формат вывода, пока поддерживается только "plain"',
     )
 
     args = parser.parse_args()
