@@ -1,15 +1,43 @@
 import argparse
 import json
 
-
 def parse_file(file_path):
-    with open(file_path, encoding="utf-8") as file:
-        return json.load(file)
+    """
+    Загружает JSON из файла по указанному пути.
 
+    Args:
+        file_path (str): путь к файлу
+
+    Returns:
+        dict: данные из файла
+
+    Raises:
+        FileNotFoundError: если файл не найден
+        json.JSONDecodeError: если содержимое файла некорректный JSON
+    """
+    try:
+        with open(file_path, encoding='utf-8') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        print(f"Файл не найден: {file_path}")
+        raise
+    except json.JSONDecodeError:
+        print(f"Некорректный JSON в файле: {file_path}")
+        raise
 
 def generate_diff(data1, data2):
+    """
+    Генерирует строковое представление различий между двумя словарями.
+
+    Args:
+        data1 (dict): первый словарь
+        data2 (dict): второй словарь
+
+    Returns:
+        str: строка с результатом сравнения
+    """
     all_keys = sorted(data1.keys() | data2.keys())
-    lines = ["{"]
+    lines = ['{']
     for key in all_keys:
         if key not in data1:
             lines.append(f"  + {key}: {format_value(data2[key])}")  # 2 пробела
@@ -21,17 +49,25 @@ def generate_diff(data1, data2):
             else:
                 lines.append(f"  - {key}: {format_value(data1[key])}")  # 2 пробела
                 lines.append(f"  + {key}: {format_value(data2[key])}")  # 2 пробела
-    lines.append("}")
-    return "\n".join(lines)
-
+    lines.append('}')
+    return '\n'.join(lines)
 
 def format_value(value):
+    """
+    Форматирует значение для вывода.
+
+    Args:
+        value: значение любого типа
+
+    Returns:
+        str: форматированное представление
+    """
     if isinstance(value, bool):
         return str(value).lower()
     elif value is None:
-        return "null"
+        return 'null'
     elif isinstance(value, list):
-        return json.dumps(value)  # если бывают списки, форматируем как JSON строки
+        return json.dumps(value)
     elif isinstance(value, dict):
         return json.dumps(value)
     else:
