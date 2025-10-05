@@ -5,4 +5,4 @@ test:
 	PYTHONPATH=src pytest --maxfail=1 --disable-warnings -q
 
 test-coverage:
-	pytest --maxfail=1 --disable-warnings --cov=src/hexlet_code --cov-report=xml:coverage.xml
+	PYTHONPATH=src pytest --maxfail=1 --disable-warnings --cov=src/hexlet_code --cov-report=xml:coverage.xml
