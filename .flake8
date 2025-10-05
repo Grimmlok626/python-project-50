@@ -1,0 +1,6 @@
+[flake8]
+max-line-length = 80  # ваш параметр
+ignore = F401  # игнорировать неиспользуемые импорты для `__init__.py`
+select = E,F,I,C90
+per-file-ignores =
+    __init__.py: F401
