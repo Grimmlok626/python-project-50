@@ -3,6 +3,7 @@ import json
 import os
 from .parsers import parse_yaml
 
+
 def parse_file(file_path):
     ext = os.path.splitext(file_path)[1].lower()
     if ext in ['.yaml', '.yml']:
@@ -12,6 +13,7 @@ def parse_file(file_path):
             return json.load(f)
     else:
         raise ValueError("Unsupported file extension")
+
 
 def generate_diff(filepath1, filepath2):
     """
@@ -43,6 +45,7 @@ def generate_diff(filepath1, filepath2):
     lines.append('}')
     return '\n'.join(lines)
 
+
 def format_value(value):
     """
     Форматирует значение для вывода.
@@ -61,6 +64,7 @@ def format_value(value):
         return json.dumps(value)
     else:
         return str(value)
+
 
 def main():
     parser = argparse.ArgumentParser(
