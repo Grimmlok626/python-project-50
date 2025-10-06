@@ -3,6 +3,7 @@ import sys
 import os
 import json
 
+
 def test_compare_json_files():
     base_dir = os.path.dirname(__file__)
     file1_path = os.path.join(base_dir, "test_data", "file1.json")
