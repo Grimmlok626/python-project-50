@@ -1,12 +1,7 @@
-from hexlet_code.gendiff import generate_diff
+from src.hexlet_code.gendiff import generate_diff
 import sys
 import os
 import json
-
-sys.path.insert(
-    0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
-)
-
 
 def test_compare_json_files():
     base_dir = os.path.dirname(__file__)
