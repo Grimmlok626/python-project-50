@@ -17,14 +17,14 @@ jobs:
         run: |
           pip install -U pip
           pip install -r requirements.txt
-          # или, если используетесь makefile:
+          # или, если используете make install:
           # make install
       - name: Run linter
         run: make lint
       - name: Run tests
-        run: make test
+        run: bash -c "PYTHONPATH=src make test"
       - name: Run test coverage
-        run: make test-coverage
+        run: bash -c "PYTHONPATH=src make test-coverage"
       - name: SonarQubeScan
         uses: SonarSource/sonarqube-scan-action@v5
         env:
