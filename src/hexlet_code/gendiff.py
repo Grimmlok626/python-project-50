@@ -86,5 +86,6 @@ def main():
     diff_result = generate_diff(args.first_file, args.second_file)
     print(diff_result)
 
+
 if __name__ == "__main__":
     main()
