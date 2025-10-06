@@ -17,21 +17,9 @@ jobs:
         run: |
           pip install -U pip
           pip install -r requirements.txt
-          # или, если используете make install:
-          # make install
       - name: Run linter
         run: make lint
       - name: Run tests
-        run: bash -c "PYTHONPATH=src make test"
+        run: make test
       - name: Run test coverage
-        run: bash -c "PYTHONPATH=src make test-coverage"
-#      - name: SonarQubeScan
-#        uses: sonarsource/sonarqube-scan-action@v6
-#        env:
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#        with:
-#          args: >
-#            -Dsonar.projectKey=Grimmlok626_python-project-50
-#            -Dsonar.organization=grimmlok626
-#            -Dsonar.python.coverage.reportPaths=coverage.xml
-#            -Dsonar.branch.name=main
+        run: make test-coverage

@@ -1,4 +1,4 @@
-from src.hexlet_code.gendiff import generate_diff
+from hexlet_code.gendiff import generate_diff
 import sys
 import os
 import json
