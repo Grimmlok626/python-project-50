@@ -32,5 +32,5 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=python-project-50
-            -Dsonar.organization=grimmlok626-1
+            -Dsonar.organization=grimmlok626
             -Dsonar.python.coverage.reportPaths=coverage.xml
