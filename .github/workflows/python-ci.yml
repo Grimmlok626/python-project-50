@@ -26,11 +26,12 @@ jobs:
       - name: Run test coverage
         run: bash -c "PYTHONPATH=src make test-coverage"
       - name: SonarQubeScan
-        uses: SonarSource/sonarqube-scan-action@v5
+        uses: sonarsource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=python-project-50
+            -Dsonar.projectKey=Grimmlok626_python-project-50
             -Dsonar.organization=grimmlok626
             -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.branch.name=main
