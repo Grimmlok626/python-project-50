@@ -13,14 +13,25 @@ def test_compare_json_files():
     with open(expected_path, "r") as f:
         expected = f.read().strip()
 
-    # Загружаем файлы в словари с использованием контекстных менеджеров
-    with open(file1_path, "r") as f:
-        data1 = json.load(f)
-    with open(file2_path, "r") as f:
-        data2 = json.load(f)
+    # Вызов с путями, а не со словарями
+    result = generate_diff(file1_path, file2_path)
 
-    # Вызов вашей функции
-    result = generate_diff(data1, data2)
     print("Generated diff:\n", result)
+    assert result == expected
 
-    assert result.strip() == expected
+
+def test_compare_yaml_files():
+    filepath1 = 'tests/test_data/file1.yml'
+    filepath2 = 'tests/test_data/file2.yml'
+    expected_output = """{
+  - follow: false
+  host: hexlet.io
+  proxy: 123.234.53.22
+  - timeout: 50
+  + timeout: 20
+  + verbose: true
+}"""
+
+    result = generate_diff(filepath1, filepath2)
+    print("Result:\n", result)
+    assert result == expected_output

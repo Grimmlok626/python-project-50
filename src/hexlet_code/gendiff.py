@@ -1,59 +1,47 @@
 import argparse
 import json
-
+import os
+from .parsers import parse_yaml
 
 def parse_file(file_path):
+    ext = os.path.splitext(file_path)[1].lower()
+    if ext in ['.yaml', '.yml']:
+        return parse_yaml(file_path)
+    elif ext == '.json':
+        with open(file_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    else:
+        raise ValueError("Unsupported file extension")
+
+def generate_diff(filepath1, filepath2):
     """
-    Загружает JSON из файла по указанному пути.
+    Генерирует строковое представление различий между двумя файлами.
 
     Args:
-        file_path (str): путь к файлу
-
-    Returns:
-        dict: данные из файла
-
-    Raises:
-        FileNotFoundError: если файл не найден
-        json.JSONDecodeError: если содержимое файла некорректный JSON
-    """
-    try:
-        with open(file_path, encoding='utf-8') as file:
-            return json.load(file)
-    except FileNotFoundError:
-        print(f"Файл не найден: {file_path}")
-        raise
-    except json.JSONDecodeError:
-        print(f"Некорректный JSON в файле: {file_path}")
-        raise
-
-
-def generate_diff(data1, data2):
-    """
-    Генерирует строковое представление различий между двумя словарями.
-
-    Args:
-        data1 (dict): первый словарь
-        data2 (dict): второй словарь
+        filepath1 (str): путь к первому файлу
+        filepath2 (str): путь ко второму файлу
 
     Returns:
         str: строка с результатом сравнения
     """
+    data1 = parse_file(filepath1)
+    data2 = parse_file(filepath2)
+
     all_keys = sorted(data1.keys() | data2.keys())
     lines = ['{']
     for key in all_keys:
         if key not in data1:
-            lines.append(f"  + {key}: {format_value(data2[key])}")  # 2 пробела
+            lines.append(f"  + {key}: {format_value(data2[key])}")
         elif key not in data2:
-            lines.append(f"  - {key}: {format_value(data1[key])}")  # 2 пробела
+            lines.append(f"  - {key}: {format_value(data1[key])}")
         else:
             if data1[key] == data2[key]:
-                lines.append(f"  {key}: {format_value(data1[key])}")  # 2 пробела
+                lines.append(f"  {key}: {format_value(data1[key])}")
             else:
-                lines.append(f"  - {key}: {format_value(data1[key])}")  # 2 пробела
-                lines.append(f"  + {key}: {format_value(data2[key])}")  # 2 пробела
+                lines.append(f"  - {key}: {format_value(data1[key])}")
+                lines.append(f"  + {key}: {format_value(data2[key])}")
     lines.append('}')
     return '\n'.join(lines)
-
 
 def format_value(value):
     """
@@ -69,13 +57,10 @@ def format_value(value):
         return str(value).lower()
     elif value is None:
         return 'null'
-    elif isinstance(value, list):
-        return json.dumps(value)
-    elif isinstance(value, dict):
+    elif isinstance(value, (list, dict)):
         return json.dumps(value)
     else:
         return str(value)
-
 
 def main():
     parser = argparse.ArgumentParser(
@@ -94,12 +79,8 @@ def main():
 
     args = parser.parse_args()
 
-    data1 = parse_file(args.first_file)
-    data2 = parse_file(args.second_file)
-
-    diff_result = generate_diff(data1, data2)
+    diff_result = generate_diff(args.first_file, args.second_file)
     print(diff_result)
-
 
 if __name__ == "__main__":
     main()
