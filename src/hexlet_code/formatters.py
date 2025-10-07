@@ -1,4 +1,6 @@
 def stylish(tree):
+
+
     def format_value(value, depth):
         # Примитивы
         if not isinstance(value, dict):
@@ -18,6 +20,7 @@ def stylish(tree):
             lines.append(f"{indent_children}{k}: {format_value(v, depth + 1)}")
         lines.append(f"{indent_closing}}}")
         return '\n'.join(lines)
+
 
     def iter(nodes, depth=1):
         lines = []
@@ -42,8 +45,10 @@ def stylish(tree):
                 lines.append(f"{sign_indent}+ {key}: {format_value(new, depth + 1)}")
         closing = '    ' * (depth - 1)
         return '{\n' + '\n'.join(lines) + f'\n{closing}}}'
+        
 
     return iter(tree)
+
 
 FORMATTERS = {
     'stylish': stylish,

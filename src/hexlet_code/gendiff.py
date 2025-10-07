@@ -3,6 +3,7 @@ import json
 from .parsers import parse_yaml
 from .formatters import FORMATTERS
 
+
 def parse_file(filepath):
     ext = os.path.splitext(filepath)[1].lower()
     if ext in ['.yaml', '.yml']:
@@ -12,6 +13,7 @@ def parse_file(filepath):
             return json.load(f)
     else:
         raise ValueError("Unsupported file extension")
+
 
 def build_diff_tree(data1, data2):
     keys = sorted(data1.keys() | data2.keys())
@@ -34,6 +36,7 @@ def build_diff_tree(data1, data2):
                 nodes.append({'key': key, 'status': 'updated', 'value': (v1, v2)})
     return nodes
 
+
 def validate_diff_tree(nodes):
     # Проверка структуры узлов
     assert isinstance(nodes, list), "diff_tree должно быть списком"
@@ -52,6 +55,7 @@ def validate_diff_tree(nodes):
                 "Узел 'updated' должен иметь список или кортеж из двух элементов"
         else:
             raise ValueError(f"Неизвестный статус узла: {status}")
+
 
 def generate_diff(filepath1, filepath2, format_name='stylish'):
     data1 = parse_file(filepath1)
