@@ -45,6 +45,7 @@ def stylish(tree):
         return '{\n' + '\n'.join(lines) + f'\n{closing}}}'
 
     return iter(tree)
+    
 
 FORMATTERS = {
     'stylish': stylish,
