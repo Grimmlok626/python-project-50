@@ -72,6 +72,7 @@ def generate_diff(filepath1, filepath2, format='stylish'):
         raise ValueError(f"Unknown format: {format}")
     return formatter(diff_tree)
 
+
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description='Compare two files.')
