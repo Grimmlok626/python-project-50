@@ -12,7 +12,7 @@ def parse_file(filepath):
         with open(filepath, 'r', encoding='utf-8') as f:
             return json.load(f)
     else:
-        raise ValueError("Unsupported file extension: {}".format(ext))
+        raise ValueError(f"Unsupported file extension: {ext}")
 
 
 def build_diff_tree(data1, data2):
@@ -61,10 +61,6 @@ def generate_diff(filepath1, filepath2, format='stylish'):
     data2 = parse_file(filepath2)
     diff_tree = build_diff_tree(data1, data2)
 
-    # Можно убрать, если не нужен отладочный вывод
-    # print("=== BUILD_DIFF_TREE JSON Output ===")
-    # print(json.dumps(diff_tree, ensure_ascii=False, indent=2))
-    
     validate_diff_tree(diff_tree)
 
     formatter = FORMATTERS.get(format)
@@ -73,12 +69,18 @@ def generate_diff(filepath1, filepath2, format='stylish'):
     return formatter(diff_tree)
 
 
-if __name__ == "__main__":
+def main():
     import argparse
     parser = argparse.ArgumentParser(description='Compare two files.')
     parser.add_argument('first_file')
     parser.add_argument('second_file')
-    parser.add_argument('-f', '--format', default='stylish', help='Output format (stylish, plain, ...)')
+    parser.add_argument('-f', '--format', default='stylish',
+                        help='Output format (stylish, plain, json)')
     args = parser.parse_args()
 
-    print(generate_diff(args.first_file, args.second_file, args.format))
+    output = generate_diff(args.first_file, args.second_file, args.format)
+    print(output)
+
+
+if __name__ == '__main__':
+    main()

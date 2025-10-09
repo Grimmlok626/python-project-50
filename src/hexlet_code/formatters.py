@@ -1,3 +1,6 @@
+import json
+
+
 def stylish(tree):
 
     def format_value(value, depth):
@@ -92,8 +95,13 @@ def plain(tree):
         lines.extend(format_node(node, []))
     return '\n'.join(lines)
 
+
+def json_format(tree):
+    return json.dumps(tree, ensure_ascii=False, indent=2)
+
         
 FORMATTERS = {
     'stylish': stylish,
     'plain': plain,
+    'json': json_format,  # Добавили JSON формат
 }
