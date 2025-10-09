@@ -46,6 +46,7 @@ def stylish(tree):
     
     return iter(tree)
 
+
 def plain(tree):
     def build_path(node, ancestors):
         return '.'.join(ancestors + [node['key']])
@@ -91,9 +92,7 @@ def plain(tree):
         lines.extend(format_node(node, []))
     return '\n'.join(lines)
 
-    
-    
-
+        
 FORMATTERS = {
     'stylish': stylish,
     'plain': plain,
