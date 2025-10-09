@@ -3,7 +3,6 @@ import json
 from .parsers import parse_yaml
 from .formatters import FORMATTERS
 
-
 def parse_file(filepath):
     ext = os.path.splitext(filepath)[1].lower()
     if ext in ['.yaml', '.yml']:
@@ -12,8 +11,7 @@ def parse_file(filepath):
         with open(filepath, 'r', encoding='utf-8') as f:
             return json.load(f)
     else:
-        raise ValueError("Unsupported file extension")
-
+        raise ValueError("Unsupported file extension: {}".format(ext))
 
 def build_diff_tree(data1, data2):
     keys = sorted(data1.keys() | data2.keys())
@@ -36,9 +34,7 @@ def build_diff_tree(data1, data2):
                 nodes.append({'key': key, 'status': 'updated', 'value': (v1, v2)})
     return nodes
 
-
 def validate_diff_tree(nodes):
-    # Проверка структуры узлов
     assert isinstance(nodes, list), "diff_tree должно быть списком"
     for node in nodes:
         assert isinstance(node, dict), "Каждый элемент diff_tree должен быть словарем"
@@ -56,30 +52,28 @@ def validate_diff_tree(nodes):
         else:
             raise ValueError(f"Неизвестный статус узла: {status}")
 
-
-def generate_diff(filepath1, filepath2, format_name='stylish'):
+def generate_diff(filepath1, filepath2, format='stylish'):
     data1 = parse_file(filepath1)
     data2 = parse_file(filepath2)
-
     diff_tree = build_diff_tree(data1, data2)
-    print("=== BUILD_DIFF_TREE JSON Output ===")
-    print(json.dumps(diff_tree, ensure_ascii=False, indent=2))
 
-    # Валидация структуры diff_tree перед форматированием
+    # Можно убрать, если не нужен отладочный вывод
+    # print("=== BUILD_DIFF_TREE JSON Output ===")
+    # print(json.dumps(diff_tree, ensure_ascii=False, indent=2))
+    
     validate_diff_tree(diff_tree)
 
-    formatter = FORMATTERS.get(format_name)
+    formatter = FORMATTERS.get(format)
     if not formatter:
-        raise ValueError(f"Unknown format: {format_name}")
+        raise ValueError(f"Unknown format: {format}")
     return formatter(diff_tree)
-
 
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description='Compare two files.')
     parser.add_argument('first_file')
     parser.add_argument('second_file')
-    parser.add_argument('-f', '--format', default='stylish', help='format')
+    parser.add_argument('-f', '--format', default='stylish', help='Output format (stylish, plain, ...)')
     args = parser.parse_args()
 
     print(generate_diff(args.first_file, args.second_file, args.format))

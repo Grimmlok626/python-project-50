@@ -43,10 +43,58 @@ def stylish(tree):
                 lines.append(f"{sign_indent}+ {key}: {format_value(new, depth + 1)}")
         closing = '    ' * (depth - 1)
         return '{\n' + '\n'.join(lines) + f'\n{closing}}}'
-
+    
     return iter(tree)
+
+def plain(tree):
+    def build_path(node, ancestors):
+        return '.'.join(ancestors + [node['key']])
+    
+    def format_node(node, ancestors):
+        path = build_path(node, ancestors)
+        status = node['status']
+        lines = []
+
+        if status == 'nested':
+            for child in node['children']:
+                lines.extend(format_node(child, ancestors + [node['key']]))
+            return lines
+
+        elif status == 'added':
+            value_str = stringify_value(node['value'])
+            lines.append(f"Property '{path}' was added with value: {value_str}")
+        elif status == 'removed':
+            lines.append(f"Property '{path}' was removed")
+        elif status == 'updated':
+            old_value, new_value = node['value']
+            old_str = stringify_value(old_value)
+            new_str = stringify_value(new_value)
+            lines.append(f"Property '{path}' was updated. From {old_str} to {new_str}")
+        elif status == 'unchanged':
+            # ничего не делаем, по задаче не требует
+            pass
+        return lines
+
+    def stringify_value(value):
+        if isinstance(value, dict) or isinstance(value, list):
+            return '[complex value]'
+        if value is None:
+            return 'null'
+        if isinstance(value, bool):
+            return str(value).lower()
+        if isinstance(value, (int, float)):
+            return str(value)
+        return str(value)
+
+    lines = []
+    for node in tree:
+        lines.extend(format_node(node, []))
+    return '\n'.join(lines)
+
+    
     
 
 FORMATTERS = {
     'stylish': stylish,
+    'plain': plain,
 }
