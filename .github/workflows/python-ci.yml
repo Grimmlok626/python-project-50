@@ -2,11 +2,15 @@ name: Python CI
 
 on:
   push:
+    branches:
+      - '**'
   pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: src  # добавляем путь для поиска модулей
     steps:
       - uses: actions/checkout@v4
 
