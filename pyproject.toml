@@ -10,8 +10,10 @@ readme = "README.md"
 requires-python = ">=3.6"
 
 [project.scripts]
-gendiff = "gendiff:main"  # CLI команда вызывает main() в gendiff.py
+gendiff = "gendiff:main"
+
+[tool.hatch.build]
+sources = ["src"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["hexlet_code"]   # пакет из src/hexlet_code
-modules = ["gendiff"]     
+packages = ["hexlet_code"]
