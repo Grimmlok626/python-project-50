@@ -8,6 +8,10 @@ version = "0.1.0"
 description = "Compares two configuration files and shows a difference."
 readme = "README.md"
 requires-python = ">=3.6"
+dependencies = [
+    # добавьте сюда зависимости вашего проекта, например:
+    # "requests>=2.0",
+]
 
 [project.scripts]
 gendiff = "gendiff:main"
@@ -17,3 +21,15 @@ sources = ["src"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["hexlet_code"]
+
+[tool.hatch.metadata]
+dependencies = [
+  # зависимости для работы проекта — оставьте пустым или заполните по необходимости
+]
+
+[tool.hatch.metadata.dev-dependencies]
+test = [
+  "pytest>=8.4.2",
+  "flake8",
+  # при необходимости добавьте другие dev-зависимости
+]
