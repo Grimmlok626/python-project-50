@@ -9,17 +9,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install dependencies
+
+      - name: Install dependencies with hatch
         run: |
-          pip install -U pip
-          pip install -r requirements.txt
+          pip install --upgrade pip
+          pip install hatch
+          hatch env create
+          hatch develop
+
       - name: Run linter
-        run: make lint
+        run: |
+          hatch run make lint
+
       - name: Run tests
-        run: make test
+        run: |
+          hatch run make test
+
       - name: Run test coverage
-        run: make test-coverage
+        run: |
+          hatch run make test-coverage
