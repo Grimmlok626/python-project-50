@@ -24,7 +24,7 @@ jobs:
           pip install --upgrade pip
           pip install hatch
           hatch env create
-          hatch shell
+          hatch run make test
 
       # ДОБАВЛЯЕМ: Очистка кэша и старых файлов перед тестированием
       - name: Clear cache and build artifacts
