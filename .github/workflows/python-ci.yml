@@ -26,6 +26,14 @@ jobs:
           hatch env create
           hatch shell
 
+      # ДОБАВЛЯЕМ: Очистка кэша и старых файлов перед тестированием
+      - name: Clear cache and build artifacts
+        run: |
+          echo "Cleaning cache and old build artifacts..."
+          rm -rf ~/.cache/pypoetry ~/.cache/pip
+          rm -rf dist *.egg-info
+          git clean -fd
+
       - name: Run linter
         run: |
           hatch run make lint
