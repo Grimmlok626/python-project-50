@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "hexlet_code"
@@ -11,3 +11,11 @@ requires-python = ">=3.6"
 
 [project.scripts]
 gendiff = "hexlet_code.gendiff:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["hexlet_code"]
+
+[tool.hatch.dev-dependencies]
+uvicorn = "^0.22.0"
+ruff = "^0.0.243"
+pytest = "^7.0"
