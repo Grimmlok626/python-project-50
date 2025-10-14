@@ -1,6 +1,6 @@
 import os
 import json
-from hexlet_code import generate_diff
+from gendiff.scripts.gendiff import generate_diff
 
 BASE_DIR = os.path.dirname(__file__)
 TEST_DATA_DIR = os.path.join(BASE_DIR, "test_data")

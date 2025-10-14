@@ -17,10 +17,10 @@ dependencies = [
 gendiff = "gendiff:main"
 
 [tool.hatch.build]
-sources = ["src"]
+sources = ["gendiff"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["hexlet_code"]
+packages = ["gendiff"]
 
 [tool.hatch.metadata]
 dependencies = [

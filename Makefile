@@ -2,7 +2,7 @@ lint:
 	flake8 . --config=.flake8
 
 test:
-	PYTHONPATH=src python -m pytest --maxfail=1 --disable-warnings -q
+	PYTHONPATH=gendiff python -m pytest --maxfail=1 --disable-warnings -q
 
 test-coverage:
-	PYTHONPATH=src pytest --maxfail=1 --disable-warnings --cov=src --cov-report=xml:coverage.xml
+	PYTHONPATH=gendiff pytest --maxfail=1 --disable-warnings --cov=src --cov-report=xml:coverage.xml
