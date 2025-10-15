@@ -4,10 +4,10 @@ tasks:
     cmd: ruff .
 
   test:
-    desc: "Запуск pytest"
+    desc: "Запуск pytest через uv"
     env:
       PYTHONPATH: .
-    cmd: PYTHONPATH=. python -m pytest --maxfail=1 --disable-warnings
+    cmd: uv run -- env=PYTHONPATH pytest --maxfail=1 --disable-warnings
 
   build:
     desc: "Сборка"

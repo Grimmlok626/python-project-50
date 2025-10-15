@@ -9,8 +9,6 @@ description = "Compares two configuration files and shows a difference."
 readme = "README.md"
 requires-python = ">=3.6"
 dependencies = [
-    # добавьте сюда зависимости вашего проекта, например:
-    # "requests>=2.0",
     "ruff>=0.0.17",
 ]
 
@@ -19,16 +17,16 @@ gendiff = "gendiff.scripts.gendiff:main"
 
 [tool.hatch.build]
 sources = ["gendiff"]
-
-[tool.hatch.build.targets.wheel]
 packages = ["gendiff"]
 
 [tool.hatch.metadata]
-dependencies = [
-]
+dependencies = []
 
 [tool.hatch.metadata.dev-dependencies]
 test = [
   "pytest>=8.4.2",
   "ruff"
 ]
+
+[tool.uv.tasks]
+test = { env = { PYTHONPATH = "." }, cmd = "pytest --maxfail=1 --disable-warnings" }

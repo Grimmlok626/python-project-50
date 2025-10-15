@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # чтобы анализ был релевантным
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -27,6 +27,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt || true
 
+      - name: Install package in editable mode
+        run: |
+          pip install -e .
+
+      # Допустим, у вас есть команда запуска тестов, если она нужна:
+      - name: Run tests
+        run: |
+          PYTHONPATH=. python -m pytest --maxfail=1 --disable-warnings
+          
       - name: Run SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
