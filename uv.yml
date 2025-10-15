@@ -1,27 +1,27 @@
 tasks:
   lint:
     desc: "Запуск ruff"
-    cmd: ruff .
+    cmd: hatch run ruff .
 
   test:
     desc: "Запуск pytest через uv"
     env:
-      PYTHONPATH: .
+      PYTHONPATH: "."
     cmd: |
-      pip install -e .
-      uv run -- env=PYTHONPATH pytest --maxfail=1 --disable-warnings
+      hatch run pip install -e .
+      hatch run uv run -- env=PYTHONPATH pytest --maxfail=1 --disable-warnings
 
   build:
     desc: "Сборка"
-    cmd: python -m build
+    cmd: hatch build
 
   install:
     desc: "Установка в editable"
-    cmd: pip install -e .
+    cmd: hatch run pip install -e .
 
   package:
     desc: "Создание дистрибутива"
-    cmd: python -m build
+    cmd: hatch build
 
   install-package:
     desc: "Установка пакета из dist"
