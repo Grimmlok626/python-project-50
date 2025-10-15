@@ -7,12 +7,12 @@ lint:
 	ruff .
 
 test:
-	# Устанавливаем пакет, если не установлен, в режиме editable
+	# Установка пакета editable (если нужно)
 	hatch run pip install -e .
-	# Запускаем pytest с PYTHONPATH=., чтобы модуль был доступен
+	# Запуск тестов с PYTHONPATH=. — указываем корень проекта
 	PYTHONPATH=. hatch run pytest --maxfail=1 --disable-warnings
 
 test-coverage:
-	# Аналогично, с включением покрытия
+	# Аналогично, запуск с покрытием
 	hatch run pip install -e .
 	PYTHONPATH=. hatch run pytest --maxfail=1 --disable-warnings --cov=gendiff --cov-report=xml:coverage.xml

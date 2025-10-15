@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PYTHONPATH: ${{ github.workspace }}   # Указываем путь к рабочей директории
+      PYTHONPATH: ${{ github.workspace }}  # Рабочая директория проекта
 
     steps:
       - uses: actions/checkout@v4
@@ -26,35 +26,30 @@ jobs:
           python -m pip install --upgrade pip
           pip install hatch
 
-      - name: Создать окружение и установить проект
+      - name: Create environment and install project
         run: |
           hatch env create
           hatch run pip install -e .
 
-      # Устанавливаем пакет и запускаем тесты через make
-      - name: Установить пакет и запустить тесты
+      - name: Run tests via make (install + test)
         run: |
           make install
           make test
 
-      # Запуск линтера
       - name: Run linter (ruff)
         run: |
           hatch run ruff .
 
-      # Запуск тестов через hatch, с правильным PYTHONPATH
-      - name: Run pytest через hatch
+      - name: Run tests directly with hatch and pytest
         run: |
           hatch run pip install -e .
-          PYTHONPATH=$GITHUB_WORKSPACE hatch run pytest --maxfail=1 --disable-warnings
+          PYTHONPATH=${GITHUB_WORKSPACE} hatch run pytest --maxfail=1 --disable-warnings
 
-      # Проверка покрытия
-      - name: Run тесты с покрытием
+      - name: Run test coverage
         run: |
-          PYTHONPATH=$GITHUB_WORKSPACE hatch run pytest --maxfail=1 --disable-warnings --cov=gendiff
+          PYTHONPATH=${GITHUB_WORKSPACE} hatch run pytest --maxfail=1 --disable-warnings --cov=gendiff
 
-      # Запуск SonarQube только на main
-      - name: Run SonarQube Scan (только на ветке main)
+      - name: Run SonarQube Scan (only on main branch)
         if: github.ref == 'refs/heads/main'
         uses: SonarSource/sonarqube-scan-action@v6
         env:
