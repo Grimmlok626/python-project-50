@@ -7,7 +7,7 @@ lint:
 	ruff .
 
 test:
-	PYTHONPATH=. hatch run pytest --maxfail=1 --disable-warnings
+	PYTHONPATH=${PYTHONPATH:=.} hatch run pytest --maxfail=1 --disable-warnings
 
 test-coverage:
 	# Аналогично, запуск с покрытием
