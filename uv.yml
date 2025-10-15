@@ -1,0 +1,8 @@
+tasks:
+  lint:
+    desc: "Запуск ruff"
+    cmd: ruff .
+
+  test:
+    desc: "Запуск pytest"
+    cmd: PYTHONPATH=gendiff python -m pytest --maxfail=1 --disable-warnings

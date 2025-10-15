@@ -1,5 +1,5 @@
 lint:
-	flake8 . --config=.flake8
+	ruff .
 
 test:
 	PYTHONPATH=gendiff python -m pytest --maxfail=1 --disable-warnings -q
