@@ -7,9 +7,6 @@ lint:
 	ruff .
 
 test:
-	# Установка пакета editable (если нужно)
-	hatch run pip install -e .
-	# Запуск тестов с PYTHONPATH=. — указываем корень проекта
 	PYTHONPATH=. hatch run pytest --maxfail=1 --disable-warnings
 
 test-coverage:
