@@ -7,7 +7,9 @@ tasks:
     desc: "Запуск pytest через uv"
     env:
       PYTHONPATH: .
-    cmd: uv run -- env=PYTHONPATH pytest --maxfail=1 --disable-warnings
+    cmd: |
+      pip install -e .
+      uv run -- env=PYTHONPATH pytest --maxfail=1 --disable-warnings
 
   build:
     desc: "Сборка"
