@@ -4,7 +4,9 @@ tasks:
     cmd: ruff .
 
   test:
-    desc: "Запуск тестов"
+    desc: "Запуск pytest"
+    env:
+      PYTHONPATH: .
     cmd: PYTHONPATH=. python -m pytest --maxfail=1 --disable-warnings
 
   build:
