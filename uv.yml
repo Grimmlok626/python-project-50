@@ -4,5 +4,21 @@ tasks:
     cmd: ruff .
 
   test:
-    desc: "Запуск pytest"
-    cmd: PYTHONPATH=gendiff python -m pytest --maxfail=1 --disable-warnings
+    desc: "Запуск тестов"
+    cmd: PYTHONPATH=. python -m pytest --maxfail=1 --disable-warnings
+
+  build:
+    desc: "Сборка"
+    cmd: python -m build
+
+  install:
+    desc: "Установка в editable"
+    cmd: pip install -e .
+
+  package:
+    desc: "Создание дистрибутива"
+    cmd: python -m build
+
+  install-package:
+    desc: "Установка пакета из dist"
+    cmd: pip install dist/*.tar.gz
