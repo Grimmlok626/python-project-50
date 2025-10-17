@@ -14,7 +14,7 @@ def stylish(tree):
             return value
         # Словарь → многострочный блок
         lines = ['{']
-        indent_children = '    ' * (depth)
+        indent_children = '    ' * depth
         indent_closing = '    ' * (depth - 1)
         for k, v in sorted(value.items()):
             lines.append(f"{indent_children}{k}: {format_value(v, depth + 1)}")
@@ -43,7 +43,7 @@ def stylish(tree):
                 lines.append(f"{sign_indent}- {key}: {format_value(old, depth + 1)}")
                 lines.append(f"{sign_indent}+ {key}: {format_value(new, depth + 1)}")
         closing = '    ' * (depth - 1)
-        return '{\n' + '\n'.join(lines) + f'\n{closing}}}'
+        return '{\n' + '\n'.join(lines) + f'\n{closing}' + '}'
 
     return iter(tree)
 
