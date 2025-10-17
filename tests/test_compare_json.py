@@ -40,5 +40,7 @@ def test_compare_yaml_files():
     print(expected)
     print("\nGenerated diff:")
     print(result)
+    print("Результат функции generate_diff (plain):")
+    print(result)
     
     assert result == expected
