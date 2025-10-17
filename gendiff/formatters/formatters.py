@@ -2,7 +2,6 @@ import json
 
 
 def stylish(tree):
-
     def format_value(value, depth):
         # Примитивы
         if not isinstance(value, dict):
@@ -12,11 +11,10 @@ def stylish(tree):
                 return str(value).lower()
             if isinstance(value, (int, float)):
                 return str(value)
-            return value  # строка или другой тип — str(value) можно добавить, но в тестах только строки и числа
-
+            return value
         # Словарь → многострочный блок
         lines = ['{']
-        indent_children = '    ' * depth
+        indent_children = '    ' * (depth)
         indent_closing = '    ' * (depth - 1)
         for k, v in sorted(value.items()):
             lines.append(f"{indent_children}{k}: {format_value(v, depth + 1)}")
@@ -46,7 +44,7 @@ def stylish(tree):
                 lines.append(f"{sign_indent}+ {key}: {format_value(new, depth + 1)}")
         closing = '    ' * (depth - 1)
         return '{\n' + '\n'.join(lines) + f'\n{closing}}}'
-    
+
     return iter(tree)
 
 
