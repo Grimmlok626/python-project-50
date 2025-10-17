@@ -1,5 +1,6 @@
 import os
 import json
+import argparse
 from .parsers import parse_yaml
 from gendiff.formatters.formatters import FORMATTERS
 
@@ -70,7 +71,6 @@ def generate_diff(filepath1, filepath2, format='stylish'):
 
 
 def main():
-    import argparse
     parser = argparse.ArgumentParser(description='Compare two files.')
     parser.add_argument('first_file')
     parser.add_argument('second_file')

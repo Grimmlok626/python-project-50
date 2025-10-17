@@ -1,32 +1,24 @@
+[project]
+name = "hexlet-code"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "pytest-cov>=6.1.1",
+  "pyyaml>=6.0.2",
+]
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[project]
-name = "hexlet-code"
-version = "0.1.0"
-description = "Compares two configuration files and shows a difference."
-readme = "README.md"
-requires-python = ">=3.6"
-dependencies = [
-    "ruff>=0.0.17",
-]
-
-[project.scripts]
-gendiff = "gendiff.scripts.gendiff:main"
-
-[tool.hatch.build]
-sources = ["gendiff"]
+[tool.hatch.build.targets.wheel]
 packages = ["gendiff"]
 
-[tool.hatch.metadata]
-dependencies = []
+[dependency-groups]
+dev = [
+  "pytest>=8.3.5", 
+  "ruff>=0.11.8"
+  ]
 
-[tool.hatch.metadata.dev-dependencies]
-test = [
-  "pytest>=8.4.2",
-  "ruff"
-]
-
-[tool.uv.tasks]
-test = { env = { PYTHONPATH = "." }, cmd = "pytest --maxfail=1 --disable-warnings" }
+[project.scripts]
