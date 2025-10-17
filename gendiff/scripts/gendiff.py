@@ -34,9 +34,7 @@ def build_diff_tree(data1, data2):
                     {'key': key, 'status': 'nested', 'children': children}
                 )
             elif v1 == v2:
-                nodes.append(
-                    {'key': key, 'status': 'unchanged', 'value': v1}
-                )
+                nodes.append({'key': key, 'status': 'unchanged', 'value': v1})
             else:
                 nodes.append(
                     {'key': key, 'status': 'updated', 'value': (v1, v2)}
@@ -47,7 +45,9 @@ def build_diff_tree(data1, data2):
 def validate_diff_tree(nodes):
     assert isinstance(nodes, list), 'diff_tree должно быть списком'
     for node in nodes:
-        assert isinstance(node, dict), 'Каждый элемент diff_tree должен быть словарем'
+        assert isinstance(node, dict), (
+            'Каждый элемент diff_tree должен быть словарем'
+        )
         assert 'key' in node and 'status' in node, (
             "Узел должен содержать 'key' и 'status'"
         )
@@ -62,7 +62,8 @@ def validate_diff_tree(nodes):
             )
         elif status == 'updated':
             assert (
-                'value' in node and isinstance(node['value'], (list, tuple)) and
+                'value' in node and
+                isinstance(node['value'], (list, tuple)) and
                 len(node['value']) == 2
             ), 'Узел "updated" должен иметь список или кортеж из двух элементов'
         else:
@@ -87,7 +88,9 @@ def main():
     parser.add_argument('first_file')
     parser.add_argument('second_file')
     parser.add_argument(
-        '-f', '--format', default='stylish',
+        '-f',
+        '--format',
+        default='stylish',
         help='Output format (stylish, plain, json)'
     )
     args = parser.parse_args()

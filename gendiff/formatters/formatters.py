@@ -52,6 +52,7 @@ def stylish(tree):
                 lines.append(
                     f"{sign_indent}+ {key}: {format_value(new, depth + 1)}"
                 )
+
         closing = '    ' * (depth - 1)
         return '{\n' + '\n'.join(lines) + f'\n{closing}' + '}'
 

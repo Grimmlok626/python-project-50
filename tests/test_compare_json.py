@@ -55,7 +55,11 @@ def test_compare_plain_output():
     with open(expected_path, "r", encoding="utf-8") as f:
         expected = f.read().strip()
 
-    result = generate_diff(file1_path, file2_path, format='plain')
+    result = generate_diff(
+        file1_path, 
+        file2_path, 
+        format='plain'
+    )
 
     print("Expected plain output:")
     print(expected)
