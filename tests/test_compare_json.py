@@ -44,3 +44,20 @@ def test_compare_yaml_files():
     print(result)
     
     assert result == expected
+
+def test_compare_plain_output():
+    file1_path = os.path.join(TEST_DATA_DIR, "file1.json")   # или другой нужный файл
+    file2_path = os.path.join(TEST_DATA_DIR, "file2.json")
+    expected_path = os.path.join(TEST_DATA_DIR, "expected_output_plain.txt")
+
+    with open(expected_path, "r", encoding="utf-8") as f:
+        expected = f.read().strip()
+
+    result = generate_diff(file1_path, file2_path, format='plain')
+    
+    print("Expected plain output:")
+    print(expected)
+    print("\nGenerated plain output:")
+    print(result)
+
+    assert result == expected
