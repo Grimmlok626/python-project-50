@@ -88,6 +88,8 @@ def plain(tree):
             return str(value).lower()
         if isinstance(value, (int, float)):
             return str(value)
+        if isinstance(value, str):
+            return f"'{value}'"   # Добавляем кавычки вокруг строк
         return str(value)
 
     lines = []
