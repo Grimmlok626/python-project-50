@@ -10,7 +10,7 @@ def test_compare_json_files():
     file1_path = os.path.join(TEST_DATA_DIR, "file1.json")
     file2_path = os.path.join(TEST_DATA_DIR, "file2.json")
     expected_path = os.path.join(TEST_DATA_DIR, "expected_output_json.txt")
-    
+
     # Читаем файл с ожидаемым JSON-выводом, он должен быть корректным JSON
     with open(expected_path, "r", encoding="utf-8") as f:
         expected_str = f.read()
@@ -18,7 +18,7 @@ def test_compare_json_files():
     # Генерируем результат с указанием формата 'json'
     result_str = generate_diff(file1_path, file2_path, format='json')
 
-    # Загружаем оба результата как JSON структуры
+    # Загружаем оба результата как JSON-структуры
     result_json = json.loads(result_str)
     expected_json = json.loads(expected_str)
 
@@ -30,10 +30,11 @@ def test_compare_yaml_files():
     file1_path = os.path.join(TEST_DATA_DIR, "file1.yml")
     file2_path = os.path.join(TEST_DATA_DIR, "file2.yml")
     expected_path = os.path.join(TEST_DATA_DIR, "expected_output_yaml.txt")
-    
+
     # Читаем ожидаемый вывод (предполагается, что он тоже в формате текста, можно оставить как есть)
     with open(expected_path, "r", encoding="utf-8") as f:
         expected = f.read().strip()
+
     result = generate_diff(file1_path, file2_path)
 
     print("Expected output:")
@@ -42,11 +43,12 @@ def test_compare_yaml_files():
     print(result)
     print("Результат функции generate_diff (plain):")
     print(result)
-    
+
     assert result == expected
 
+
 def test_compare_plain_output():
-    file1_path = os.path.join(TEST_DATA_DIR, "file1.json")   # или другой нужный файл
+    file1_path = os.path.join(TEST_DATA_DIR, "file1.json")  # или другой нужный файл
     file2_path = os.path.join(TEST_DATA_DIR, "file2.json")
     expected_path = os.path.join(TEST_DATA_DIR, "expected_output_plain.txt")
 
@@ -54,7 +56,7 @@ def test_compare_plain_output():
         expected = f.read().strip()
 
     result = generate_diff(file1_path, file2_path, format='plain')
-    
+
     print("Expected plain output:")
     print(expected)
     print("\nGenerated plain output:")

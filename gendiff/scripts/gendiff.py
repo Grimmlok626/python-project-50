@@ -30,29 +30,41 @@ def build_diff_tree(data1, data2):
             v2 = data2[key]
             if isinstance(v1, dict) and isinstance(v2, dict):
                 children = build_diff_tree(v1, v2)
-                nodes.append({'key': key, 'status': 'nested', 'children': children})
+                nodes.append(
+                    {'key': key, 'status': 'nested', 'children': children}
+                )
             elif v1 == v2:
-                nodes.append({'key': key, 'status': 'unchanged', 'value': v1})
+                nodes.append(
+                    {'key': key, 'status': 'unchanged', 'value': v1}
+                )
             else:
-                nodes.append({'key': key, 'status': 'updated', 'value': (v1, v2)})
+                nodes.append(
+                    {'key': key, 'status': 'updated', 'value': (v1, v2)}
+                )
     return nodes
 
 
 def validate_diff_tree(nodes):
-    assert isinstance(nodes, list), "diff_tree должно быть списком"
+    assert isinstance(nodes, list), 'diff_tree должно быть списком'
     for node in nodes:
-        assert isinstance(node, dict), "Каждый элемент diff_tree должен быть словарем"
-        assert 'key' in node and 'status' in node, "Узел должен содержать 'key' и 'status'"
+        assert isinstance(node, dict), 'Каждый элемент diff_tree должен быть словарем'
+        assert 'key' in node and 'status' in node, (
+            "Узел должен содержать 'key' и 'status'"
+        )
 
         status = node['status']
         if status == 'nested':
             assert 'children' in node, "Узел с 'nested' должен иметь 'children'"
             validate_diff_tree(node['children'])
         elif status in ('added', 'removed', 'unchanged'):
-            assert 'value' in node, f"Узел со статусом '{status}' должен иметь 'value'"
+            assert 'value' in node, (
+                f"Узел со статусом '{status}' должен иметь 'value'"
+            )
         elif status == 'updated':
-            assert 'value' in node and isinstance(node['value'], (list, tuple)) and len(node['value']) == 2, \
-                "Узел 'updated' должен иметь список или кортеж из двух элементов"
+            assert (
+                'value' in node and isinstance(node['value'], (list, tuple)) and
+                len(node['value']) == 2
+            ), 'Узел "updated" должен иметь список или кортеж из двух элементов'
         else:
             raise ValueError(f"Неизвестный статус узла: {status}")
 
@@ -74,8 +86,10 @@ def main():
     parser = argparse.ArgumentParser(description='Compare two files.')
     parser.add_argument('first_file')
     parser.add_argument('second_file')
-    parser.add_argument('-f', '--format', default='stylish',
-                        help='Output format (stylish, plain, json)')
+    parser.add_argument(
+        '-f', '--format', default='stylish',
+        help='Output format (stylish, plain, json)'
+    )
     args = parser.parse_args()
 
     output = generate_diff(args.first_file, args.second_file, args.format)
