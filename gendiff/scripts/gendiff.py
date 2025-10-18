@@ -2,7 +2,7 @@ import os
 import json
 import argparse
 from .parsers import parse_yaml
-from gendiff.formatters.formatters import FORMATTERS
+from gendiff.formatters import FORMATTERS
 
 
 def parse_file(filepath):
