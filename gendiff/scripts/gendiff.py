@@ -30,15 +30,19 @@ def build_diff_tree(data1, data2):
             v2 = data2[key]
             if isinstance(v1, dict) and isinstance(v2, dict):
                 children = build_diff_tree(v1, v2)
-                nodes.append(
-                    {'key': key, 'status': 'nested', 'children': children}
-                )
+                nodes.append({
+                    'key': key,
+                    'status': 'nested',
+                    'children': children
+                })
             elif v1 == v2:
                 nodes.append({'key': key, 'status': 'unchanged', 'value': v1})
             else:
-                nodes.append(
-                    {'key': key, 'status': 'updated', 'value': (v1, v2)}
-                )
+                nodes.append({
+                    'key': key,
+                    'status': 'updated',
+                    'value': (v1, v2)
+                })
     return nodes
 
 
@@ -91,7 +95,10 @@ def main():
         '-f',
         '--format',
         default='stylish',
-        help='Output format (stylish, plain, json)'
+        help=(
+            'Output format '
+            '(stylish, plain, json)'
+        )
     )
     args = parser.parse_args()
 

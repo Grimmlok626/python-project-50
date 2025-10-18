@@ -56,8 +56,8 @@ def test_compare_plain_output():
         expected = f.read().strip()
 
     result = generate_diff(
-        file1_path, 
-        file2_path, 
+        file1_path,
+        file2_path,
         format='plain'
     )
 
