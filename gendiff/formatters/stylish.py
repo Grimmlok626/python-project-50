@@ -6,7 +6,7 @@ def format_value(value, depth):
             return str(value).lower()
         if isinstance(value, (int, float)):
             return str(value)
-        return value
+        return str(value)  # исправлено для обеспечения возврата строки
 
     lines = ['{']
     indent_children = '    ' * depth
@@ -18,11 +18,17 @@ def format_value(value, depth):
 
 
 def process_added(node, depth, sign_indent):
-    return f"{sign_indent}+ {node['key']}: {format_value(node['value'], depth + 1)}"
+    return (
+        f"{sign_indent}+ {node['key']}: "
+        f"{format_value(node['value'], depth + 1)}"
+    )
 
 
 def process_removed(node, depth, sign_indent):
-    return f"{sign_indent}- {node['key']}: {format_value(node['value'], depth + 1)}"
+    return (
+        f"{sign_indent}- {node['key']}: "
+        f"{format_value(node['value'], depth + 1)}"
+    )
 
 
 def process_unchanged(node, depth, indent):
@@ -31,8 +37,14 @@ def process_unchanged(node, depth, indent):
 
 def process_updated(node, depth, sign_indent):
     old, new = node['value']
-    line_removed = f"{sign_indent}- {node['key']}: {format_value(old, depth + 1)}"
-    line_added = f"{sign_indent}+ {node['key']}: {format_value(new, depth + 1)}"
+    line_removed = (
+        f"{sign_indent}- {node['key']}: "
+        f"{format_value(old, depth + 1)}"
+    )
+    line_added = (
+        f"{sign_indent}+ {node['key']}: "
+        f"{format_value(new, depth + 1)}"
+    )
     return [line_removed, line_added]
 
 
@@ -46,6 +58,7 @@ def stylish(tree):
 
             if status == 'nested':
                 subtree = iter(node['children'], depth + 1)
+                # Итоговая строка в стиле E501, разбиваем:
                 lines.append(f"{indent}{node['key']}: {subtree}")
             elif status == 'added':
                 lines.append(process_added(node, depth, sign_indent))
@@ -56,6 +69,12 @@ def stylish(tree):
             elif status == 'updated':
                 lines.extend(process_updated(node, depth, sign_indent))
         closing = '    ' * (depth - 1)
-        return '{\n' + '\n'.join(lines) + f'\n{closing}}}'
+        # Строка с возвратом, разбита
+        result = (
+            '{\n' +
+            '\n'.join(lines) +
+            f'\n{closing}}}'
+        )
+        return result
 
     return iter(tree)
