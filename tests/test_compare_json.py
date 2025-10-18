@@ -7,9 +7,18 @@ TEST_DATA_DIR = os.path.join(BASE_DIR, "test_data")
 
 
 def test_compare_json_files():
-    file1_path = os.path.join(TEST_DATA_DIR, "file1.json")
-    file2_path = os.path.join(TEST_DATA_DIR, "file2.json")
-    expected_path = os.path.join(TEST_DATA_DIR, "expected_output_json.txt")
+    file1_path = os.path.join(
+        TEST_DATA_DIR,
+        "file1.json"
+    )
+    file2_path = os.path.join(
+        TEST_DATA_DIR,
+        "file2.json"
+    )
+    expected_path = os.path.join(
+        TEST_DATA_DIR,
+        "expected_output_json.txt"
+    )
 
     # Читаем файл с ожидаемым JSON-выводом, он должен быть корректным JSON
     with open(expected_path, "r", encoding="utf-8") as f:
@@ -27,12 +36,20 @@ def test_compare_json_files():
 
 
 def test_compare_yaml_files():
-    file1_path = os.path.join(TEST_DATA_DIR, "file1.yml")
-    file2_path = os.path.join(TEST_DATA_DIR, "file2.yml")
-    expected_path = os.path.join(TEST_DATA_DIR, "expected_output_yaml.txt")
+    file1_path = os.path.join(
+        TEST_DATA_DIR,
+        "file1.yml"
+    )
+    file2_path = os.path.join(
+        TEST_DATA_DIR,
+        "file2.yml"
+    )
+    expected_path = os.path.join(
+        TEST_DATA_DIR,
+        "expected_output_yaml.txt"
+    )
 
-    # Читаем ожидаемый вывод (предполагается, что он тоже в формате текста,
-    # можно оставить как есть)
+    # Читаем ожидаемый вывод (предполагается, что он тоже в формате текста)
     with open(expected_path, "r", encoding="utf-8") as f:
         expected = f.read().strip()
 
@@ -49,9 +66,18 @@ def test_compare_yaml_files():
 
 
 def test_compare_plain_output():
-    file1_path = os.path.join(TEST_DATA_DIR, "file1.json")  # или другой нужный файл
-    file2_path = os.path.join(TEST_DATA_DIR, "file2.json")
-    expected_path = os.path.join(TEST_DATA_DIR, "expected_output_plain.txt")
+    file1_path = os.path.join(
+        TEST_DATA_DIR,
+        "file1.json"
+    )
+    file2_path = os.path.join(
+        TEST_DATA_DIR,
+        "file2.json"
+    )
+    expected_path = os.path.join(
+        TEST_DATA_DIR,
+        "expected_output_plain.txt"
+    )
 
     with open(expected_path, "r", encoding="utf-8") as f:
         expected = f.read().strip()
