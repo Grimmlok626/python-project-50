@@ -6,13 +6,16 @@ def format_value(value, depth):
             return str(value).lower()
         if isinstance(value, (int, float)):
             return str(value)
-        return str(value)  # исправлено для обеспечения возврата строки
+        return str(value)  # возвращаем строку
 
     lines = ['{']
     indent_children = '    ' * depth
     indent_closing = '    ' * (depth - 1)
     for k, v in sorted(value.items()):
-        lines.append(f"{indent_children}{k}: {format_value(v, depth + 1)}")
+        formatted = format_value(v, depth + 1)
+        lines.append(
+            f"{indent_children}{k}: {formatted}"
+        )
     lines.append(f"{indent_closing}}}")
     return '\n'.join(lines)
 
@@ -32,7 +35,10 @@ def process_removed(node, depth, sign_indent):
 
 
 def process_unchanged(node, depth, indent):
-    return f"{indent}{node['key']}: {format_value(node['value'], depth + 1)}"
+    return (
+        f"{indent}{node['key']}: "
+        f"{format_value(node['value'], depth + 1)}"
+    )
 
 
 def process_updated(node, depth, sign_indent):
@@ -49,7 +55,7 @@ def process_updated(node, depth, sign_indent):
 
 
 def stylish(tree):
-    def iter(nodes, depth=1):
+    def iter_(nodes, depth=1):
         lines = []
         indent = '    ' * depth
         sign_indent = '    ' * (depth - 1) + '  '
@@ -57,9 +63,10 @@ def stylish(tree):
             status = node['status']
 
             if status == 'nested':
-                subtree = iter(node['children'], depth + 1)
-                # Итоговая строка в стиле E501, разбиваем:
-                lines.append(f"{indent}{node['key']}: {subtree}")
+                subtree = iter_(node['children'], depth + 1)
+                lines.append(
+                    f"{indent}{node['key']}: {subtree}"
+                )
             elif status == 'added':
                 lines.append(process_added(node, depth, sign_indent))
             elif status == 'removed':
@@ -69,7 +76,6 @@ def stylish(tree):
             elif status == 'updated':
                 lines.extend(process_updated(node, depth, sign_indent))
         closing = '    ' * (depth - 1)
-        # Строка с возвратом, разбита
         result = (
             '{\n' +
             '\n'.join(lines) +
@@ -77,4 +83,4 @@ def stylish(tree):
         )
         return result
 
-    return iter(tree)
+    return iter_(tree)

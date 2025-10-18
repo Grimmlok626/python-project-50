@@ -31,7 +31,8 @@ def test_compare_yaml_files():
     file2_path = os.path.join(TEST_DATA_DIR, "file2.yml")
     expected_path = os.path.join(TEST_DATA_DIR, "expected_output_yaml.txt")
 
-    # Читаем ожидаемый вывод (предполагается, что он тоже в формате текста, можно оставить как есть)
+    # Читаем ожидаемый вывод (предполагается, что он тоже в формате текста,
+    # можно оставить как есть)
     with open(expected_path, "r", encoding="utf-8") as f:
         expected = f.read().strip()
 
