@@ -1,8 +1,10 @@
-import os
-import json
 import argparse
-from .parsers import parse_yaml
+import json
+import os
+
 from gendiff.formatters import FORMATTERS
+
+from .parsers import parse_yaml
 
 
 def parse_file(filepath):

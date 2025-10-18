@@ -1,5 +1,6 @@
-import os
 import json
+import os
+
 from gendiff.scripts.gendiff import generate_diff
 
 BASE_DIR = os.path.dirname(__file__)
