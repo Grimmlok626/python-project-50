@@ -37,7 +37,7 @@ jobs:
 
       - name: Run ruff (linter)
         run: |
-          PYTHONPATH=${GITHUB_WORKSPACE} hatch run -- ruff .
+          PYTHONPATH=${GITHUB_WORKSPACE} hatch run -- ruff check .
 
       - name: SonarCloud scan
         if: github.ref == 'refs/heads/main'
