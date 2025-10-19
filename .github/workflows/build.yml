@@ -1,4 +1,4 @@
-name: CI Workflow
+name: CI
 
 on:
   push:
@@ -21,14 +21,14 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install dependencies and create env
+      - name: Install hatch
         run: |
           python -m pip install --upgrade pip
           pip install hatch
 
-      - name: Create environment
+      - name: Create environment with dev dependencies
         run: |
-          hatch env create
+          hatch env create --group dev
           hatch run pip install -e .
 
       - name: Run tests with coverage
@@ -47,5 +47,4 @@ jobs:
         with:
           projectKey: Grimmlok626_python-project-50
           organization: Grimmlok626
-          # optional:
           host-url: https://sonarcloud.io
