@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     env:
       PYTHONPATH: ${{ github.workspace }}
 
@@ -33,11 +33,11 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          PYTHONPATH=${GITHUB_WORKSPACE} hatch run -- python -m pytest --maxfail=1 --disable-warnings --cov=gendiff --cov-report=xml:coverage.xml
+          PYTHONPATH=${GITHUB_WORKSPACE} hatch run -- pytest --maxfail=1 --disable-warnings --cov=gendiff --cov-report=xml:coverage.xml
 
       - name: Run ruff (linter)
         run: |
-          PYTHONPATH=${GITHUB_WORKSPACE} hatch run -- python -m ruff .
+          PYTHONPATH=${GITHUB_WORKSPACE} hatch run -- ruff .
 
       - name: SonarCloud scan
         if: github.ref == 'refs/heads/main'
