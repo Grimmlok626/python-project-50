@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PYTHONPATH: ${{ github.workspace }}  # Рабочая директория проекта
+      PYTHONPATH: ${{ github.workspace }}
 
     steps:
       - uses: actions/checkout@v4
@@ -21,38 +21,31 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Upgrade pip and install dependencies
+      - name: Install dependencies and create env
         run: |
           python -m pip install --upgrade pip
           pip install hatch
 
-      - name: Create environment and install project
+      - name: Create environment
         run: |
           hatch env create
           hatch run pip install -e .
 
-      - name: Run tests via make (install + test)
+      - name: Run tests with coverage
         run: |
-          make install
-          make test
+          PYTHONPATH=${GITHUB_WORKSPACE} hatch run -- python -m pytest --maxfail=1 --disable-warnings --cov=gendiff --cov-report=xml:coverage.xml
 
-      - name: Run linter (ruff)
+      - name: Run ruff (linter)
         run: |
-          hatch run ruff .
+          PYTHONPATH=${GITHUB_WORKSPACE} hatch run -- python -m ruff .
 
-      - name: Run tests directly with hatch and pytest
-        run: |
-          hatch run pip install -e .
-          PYTHONPATH=${GITHUB_WORKSPACE} hatch run pytest --maxfail=1 --disable-warnings
-
-      - name: Run test coverage
-        run: |
-          PYTHONPATH=${GITHUB_WORKSPACE} hatch run pytest --maxfail=1 --disable-warnings --cov=gendiff
-
-      - name: Run SonarQube Scan (only on main branch)
+      - name: SonarCloud scan
         if: github.ref == 'refs/heads/main'
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           projectKey: Grimmlok626_python-project-50
+          organization: Grimmlok626
+          # optional:
+          host-url: https://sonarcloud.io
