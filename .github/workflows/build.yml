@@ -47,5 +47,5 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=Grimmlok626_python-project-50
-            -Dsonar.organization=Grimmlok626
+            -Dsonar.organization=grimmlok626
             -Dsonar.host.url=https://sonarcloud.io
