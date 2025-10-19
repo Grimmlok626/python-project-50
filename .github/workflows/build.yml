@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
     env:
       PYTHONPATH: ${{ github.workspace }}
 
@@ -26,10 +26,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install hatch
 
-      - name: Create environment with dev dependencies
+      - name: Create environment and install dev dependencies
         run: |
-          hatch env create --group dev
-          hatch run pip install -e .
+          hatch env create
+          hatch run pip install -e .[dev]
 
       - name: Run tests with coverage
         run: |
