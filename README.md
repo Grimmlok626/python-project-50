@@ -1,4 +1,4 @@
-### Hexlet tests and linter status:
+## Hexlet tests and linter status:
 [![Actions Status](https://github.com/Grimmlok626/python-project-50/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Grimmlok626/python-project-50/actions)
 ![Test Coverage](https://sonarcloud.io/api/project_badges/measure?project=Grimmlok626_python-project-50&metric=coverage)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Grimmlok626_python-project-50&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Grimmlok626_python-project-50)
@@ -14,7 +14,7 @@
 
 ---
 
-# Python Project 50
+## Python Project 50
 
 Это учебный проект, демонстрирующий использование Python, GitHub Actions, тестирования, линтинга и интеграцию с SonarCloud.
 
