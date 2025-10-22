@@ -28,3 +28,11 @@
 - Ruff для линтинга
 - GitHub Actions для автоматической сборки
 - SonarCloud для анализа качества кода
+
+## Демонстрация
+
+[Вывод справочной информации утилите](https://asciinema.org/a/6JsbZ6FGktKCcYKq6pdxvOQjx)
+[Сравнение плоских файлов (YAML)](https://asciinema.org/a/IX6mkVU1LlikhfvLyPrHqeIIV)
+[Рекурсивное сравнение](https://asciinema.org/a/awhBhGvS9dcXFInmC0vODeSeP)
+[Плоский формат](https://asciinema.org/a/lnVCOdRmYFs2RJhXi1o2PhhWY)
+[Вывод в JSON](https://asciinema.org/a/WCxFl83fQRjM44av4looKgHyB)

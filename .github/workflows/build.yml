@@ -41,7 +41,7 @@ jobs:
 
       - name: SonarCloud scan
         if: github.ref == 'refs/heads/main'
-        uses: SonarSource/sonarqube-scan-action@v6
+        uses: SonarSource/sonarqube-scan-action@v6 # NOSONAR
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
@@ -49,3 +49,4 @@ jobs:
             -Dsonar.projectKey=Grimmlok626_python-project-50
             -Dsonar.organization=grimmlok626
             -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.python.coverage.reportPaths=coverage.xml
